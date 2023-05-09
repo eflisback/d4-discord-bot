@@ -9,3 +9,5 @@ def handle_response(user_message) -> str:
         case "!help":
             return "help called"
         
+        case _:
+            return "Did not understand."

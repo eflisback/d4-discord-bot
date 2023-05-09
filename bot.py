@@ -20,7 +20,7 @@ def run_discord_bot():
 
     intents = discord.Intents.default()
     intents.message_content = True
-    
+
     client = discord.Client(intents=intents)
 
     @client.event
@@ -40,6 +40,10 @@ def run_discord_bot():
 
         print(f"{user} said {content} in {channel}.")
 
+        if not content.startswith("!"):
+            return
+
+        content = content[1:]
 
         if content.startswith("dm "):
             content = content[3:]

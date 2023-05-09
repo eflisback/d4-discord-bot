@@ -1,5 +1,6 @@
-def handle_response(message) -> str:
-    p_message = message.lower()
+def handle_response(user_message) -> str:
+    p_message = user_message.lower()
+    print(p_message)
 
     match p_message:
         case "hello":
@@ -8,5 +9,3 @@ def handle_response(message) -> str:
         case "!help":
             return "help called"
         
-        case _:
-            return "Don't understand..."

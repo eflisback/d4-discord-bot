@@ -7,6 +7,7 @@ responses_directory = os.path.join(current_directory, "response-cases")
 sys.path.append(responses_directory)
 
 from hello import handle_hello
+from help import handle_help
 
 
 def handle_response(user_message) -> str:
@@ -17,8 +18,8 @@ def handle_response(user_message) -> str:
         case "hello":
             return handle_hello()
 
-        case "!help":
-            return "help called"
+        case "help":
+            return handle_help()
 
         case _:
             return "Did not understand."

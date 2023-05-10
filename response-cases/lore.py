@@ -21,6 +21,6 @@ def handle_lore() -> str:
     random_snippet = random.choice(lore_snippets).text.strip()
     random_snippet = re.sub(r"\[\d+\]", "", random_snippet)
 
-    response = random_snippet + f"\n \n  *--- Read more: <{url}> ---*"
+    response = random_snippet + f"\n \n  *--- <{url}> ---*"
 
     return response

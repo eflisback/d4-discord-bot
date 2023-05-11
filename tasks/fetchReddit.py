@@ -1,18 +1,27 @@
 import requests
-from bs4 import BeautifulSoup
+import json
 
-url = "https://www.reddit.com/r/diablo4/top/?t=day"
-html = requests.get(url)
+url = "https://www.reddit.com/r/diablo4.json"
 
+response = requests.get(url, headers={"User-agent": "D4-discord-bot"})
+data = response.json()
 
-s = BeautifulSoup(html.content, "html.parser")
+with open("data.json", "w") as file:
+    json.dump(data, file, indent=4)
 
-print(s)
+posts = data["data"]["children"]
 
-results = s.find(class_="y8HYJ-y_lTUHkQIc1mdCq _2INHSNB8V5eaWp4P0rY_mE")
-titles = results.find_all("h3")
+relevant_posts = []
 
-print(titles[0].text)
+for post in posts[:5]:
+    title = post["data"]["title"]
+    ups = post["data"]["ups"]
+    selftext = post["data"]["selftext"]
 
-# id t3_13e8cjf
-# class _eYtD2XCVieq6emjKBH3m
+    if ups > 100:
+        relevant_post = {"title": title, "ups": ups, "selftext": selftext}
+        relevant_posts.append(relevant_post)
+
+# Save relevant posts in a JSON file
+with open("relevant_posts.json", "w") as file:
+    json.dump(relevant_posts, file, indent=4)

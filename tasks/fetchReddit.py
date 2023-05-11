@@ -1,27 +1,38 @@
 import requests
 import json
 
-url = "https://www.reddit.com/r/diablo4.json"
+upvote_threshold = 250
+post_history_limit = 100
 
-response = requests.get(url, headers={"User-agent": "D4-discord-bot"})
-data = response.json()
 
-with open("data.json", "w") as file:
-    json.dump(data, file, indent=4)
+def fetch_reddit_data():
+    url = "https://www.reddit.com/r/diablo4.json"
 
-posts = data["data"]["children"]
+    response = requests.get(url, headers={"User-agent": "D4-discord-bot"})
+    data = response.json()
 
-relevant_posts = []
+    posts = data["data"]["children"]
 
-for post in posts[:5]:
-    title = post["data"]["title"]
-    ups = post["data"]["ups"]
-    selftext = post["data"]["selftext"]
+    try:
+        with open("used_titles.json", "r") as file:
+            used_titles = json.load(file)
+    except FileNotFoundError:
+        used_titles = []
 
-    if ups > 100:
-        relevant_post = {"title": title, "ups": ups, "selftext": selftext}
-        relevant_posts.append(relevant_post)
+    for post in posts[:5]:
+        title = post["data"]["title"]
+        ups = post["data"]["ups"]
+        selftext = post["data"]["selftext"]
 
-# Save relevant posts in a JSON file
-with open("relevant_posts.json", "w") as file:
-    json.dump(relevant_posts, file, indent=4)
+        if ups > upvote_threshold and title not in used_titles:
+            used_titles.append(title)
+
+            if len(used_titles) > post_history_limit:
+                used_titles.pop(0)
+
+            with open("used_titles.json", "w") as file:
+                json.dump(used_titles, file)
+
+            return title, selftext
+
+    return None, None

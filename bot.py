@@ -16,9 +16,9 @@ from fetchReddit import fetch_reddit_data
 load_dotenv()
 
 
-async def send_message(msg, content, is_private):
+async def send_message(guild_id, msg, content, is_private):
     try:
-        response = responses.handle_response(content)
+        response = responses.handle_response(content, guild_id)
         await msg.author.send(response) if is_private else await msg.channel.send(
             response
         )
@@ -37,12 +37,16 @@ def run_discord_bot():
     @client.event
     async def on_ready():
         print(f"{client.user} is now running!")
-        fetch_data.start()  # Start the task as soon as the bot is ready
+        fetch_data.start("default")  # Start the task as soon as the bot is ready
 
     @client.event
     async def on_message(msg):
         if msg.author == client.user:
             return
+
+        print(msg)
+        print(msg.guild.id)
+        guild_id = msg.guild.id
 
         user = str(msg.author)
         content = str(msg.content)
@@ -57,21 +61,21 @@ def run_discord_bot():
 
         if content.startswith("dm "):
             content = content[3:]
-            await send_message(msg, content, is_private=True)
+            await send_message(guild_id, msg, content, is_private=True)
         else:
-            await send_message(msg, content, is_private=False)
+            await send_message(guild_id, msg, content, is_private=False)
 
-    @tasks.loop(minutes=1)
-    async def fetch_data():
+    @tasks.loop(minutes=15)
+    async def fetch_data(guild_id):
         print("Fetching Reddit data...")
-        title, selftext = fetch_reddit_data()
+        title, selftext = fetch_reddit_data(guild_id)
         if title is not None and selftext is not None:
             message = f"New post on r/Diablo4:\n\n**{title}**\n```{selftext}```"
             for guild in client.guilds:
                 for channel in guild.text_channels:
                     if channel.permissions_for(guild.me).send_messages:
                         await channel.send(message)
-                        break  # Only send message to the first channel where the bot can send messages
+                        break
         else:
             print("No new posts found.")
 

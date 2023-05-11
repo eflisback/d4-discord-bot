@@ -14,7 +14,7 @@ def fetch_reddit_data():
     posts = data["data"]["children"]
 
     try:
-        with open("used_titles.json", "r") as file:
+        with open("./used_titles.json", "r") as file:
             used_titles = json.load(file)
     except FileNotFoundError:
         used_titles = []
@@ -30,7 +30,7 @@ def fetch_reddit_data():
             if len(used_titles) > post_history_limit:
                 used_titles.pop(0)
 
-            with open("used_titles.json", "w") as file:
+            with open("./used_titles.json", "w") as file:
                 json.dump(used_titles, file)
 
             return title, selftext

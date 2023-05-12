@@ -1,6 +1,8 @@
 import requests
 import json
 
+upvote_threshold = 250
+post_history_limit = 25
 
 def fetch_reddit_data(server_id):
     # Load the settings from JSON file

@@ -70,12 +70,25 @@ def run_discord_bot():
         print("Fetching Reddit data...")
         title, selftext = fetch_reddit_data(guild_id)
         if title is not None and selftext is not None:
-            message = f"New post on r/Diablo4:\n\n**{title}**\n```{selftext}```"
+            message = f"New post on r/Diablo4:\n\n**{title}**\n{selftext}"
             for guild in client.guilds:
+                news_channel = None
                 for channel in guild.text_channels:
-                    if channel.permissions_for(guild.me).send_messages:
-                        await channel.send(message)
+                    if (
+                        channel.name == "news"
+                        and channel.permissions_for(guild.me).send_messages
+                    ):
+                        news_channel = channel
                         break
+
+                if news_channel is not None:
+                    await news_channel.send(message)
+                else:
+                    top_channel = guild.text_channels[
+                        0
+                    ]  # Assuming the first channel is the top channel
+                    if top_channel.permissions_for(guild.me).send_messages:
+                        await top_channel.send(message)
         else:
             print("No new posts found.")
 

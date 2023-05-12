@@ -4,20 +4,8 @@ import json
 upvote_threshold = 250
 post_history_limit = 25
 
-def fetch_reddit_data(server_id):
-    # Load the settings from JSON file
-    try:
-        with open("config/server_variables.json", "r") as file:
-            settings = json.load(file)
-    except FileNotFoundError:
-        print("Settings file not found.")
-        return None, None
 
-    # Use settings for the specific server if available, otherwise use default settings
-    server_settings = settings.get(str(server_id), settings.get("default"))
-
-    upvote_threshold = server_settings.get("upvote_threshold")
-    post_history_limit = server_settings.get("post_history_limit")
+def fetch_reddit_data():
     url = "https://www.reddit.com/r/diablo4.json"
 
     response = requests.get(url, headers={"User-agent": "D4-discord-bot"})

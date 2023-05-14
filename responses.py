@@ -9,12 +9,14 @@ sys.path.append(responses_directory)
 from hello import handle_hello
 from help import handle_help
 from lore import handle_lore
+from gpt import handle_gpt
 
 
 def handle_response(user_message, user) -> str:
     p_message = user_message.lower().split()[0]
     p_id = user.id
     p_name = user.name
+    print(p_id)
 
     match p_message:
         case "hello":
@@ -25,6 +27,9 @@ def handle_response(user_message, user) -> str:
 
         case "lore":
             return handle_lore()
+
+        case "gpt":
+            return handle_gpt(user_message, p_name, p_id)
 
         case _:
             return "Did not understand."

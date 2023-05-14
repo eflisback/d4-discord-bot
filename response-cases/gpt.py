@@ -6,12 +6,12 @@ def handle_gpt(message, name, id) -> str:
     with open("user_keys.json", "r") as file:
         data = json.load(file)
         for item in data["openai"]:
-            if item["user"] == str(id):
+            if item["user"] == id:
                 prompt = remove_first_word(message)
                 key = item["key"]
                 return prompt_gpt(prompt, key)
 
-    return f"I can't find an OpenAI API key for you, {name}. To add your key to my super secret JSON file, use `!addkey openai <key>`"
+    return f"I can't find an OpenAI API key for you, {name}. To add your key to my super secret JSON file, use `!add openai <key>`"
 
 
 def prompt_gpt(prompt, key):

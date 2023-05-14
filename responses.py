@@ -11,13 +11,14 @@ from help import handle_help
 from lore import handle_lore
 
 
-def handle_response(user_message) -> str:
+def handle_response(user_message, user) -> str:
     p_message = user_message.lower().split()[0]
-    print(p_message)
+    p_id = user.id
+    p_name = user.name
 
     match p_message:
         case "hello":
-            return handle_hello()
+            return handle_hello(p_name)
 
         case "help":
             return handle_help()

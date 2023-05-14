@@ -18,7 +18,7 @@ load_dotenv()
 
 async def send_message(msg, content, is_private):
     try:
-        response = responses.handle_response(content)
+        response = responses.handle_response(content, msg.author)
         await msg.author.send(response) if is_private else await msg.channel.send(
             response
         )

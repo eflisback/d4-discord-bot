@@ -1,14 +1,13 @@
 import random
 
 
-def handle_hello() -> str:
+def handle_hello(name) -> str:
     greetings = [
-        "Hello.",
-        "Hi.",
-        "Hey.",
-        "Hey there.",
-        "Hi there.",
-        "Greetings.",
-        "🎵 Is it me you're looking fooor? 🎶",
+        "Hello",
+        "Hi",
+        "Hey",
+        "Hey there",
+        "Hi there",
+        "Greetings",
     ]
-    return random.choice(greetings)
+    return f"{random.choice(greetings)}, {name}."

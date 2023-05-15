@@ -11,7 +11,7 @@ def handle_gpt(message, name, id) -> str:
                 key = item["key"]
                 return prompt_gpt(prompt, key)
 
-    return f"I can't find an OpenAI API key for you, {name}. To add your key to my super secret JSON file, use `!add openai <key>`"
+    return f"I can't find an OpenAI API key for you, {name}. To add your key to my super secret JSON file, use `!add openai <key>` \n \n (*Pro tip: Send me a direct message in order to prevent your key from being stolen.*)"
 
 
 def prompt_gpt(prompt, key):

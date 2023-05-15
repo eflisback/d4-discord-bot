@@ -44,9 +44,6 @@ def run_discord_bot():
         if msg.author == client.user:
             return
 
-        print(msg)
-        print(msg.guild.id)
-
         user = str(msg.author)
         content = str(msg.content)
         channel = str(msg.channel)

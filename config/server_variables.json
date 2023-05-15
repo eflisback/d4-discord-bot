@@ -1,6 +1,0 @@
-{
-  "default": {
-    "upvote_threshold": 250,
-    "post_history_limit": 100
-  }
-}

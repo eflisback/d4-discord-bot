@@ -5,6 +5,7 @@ def handle_help() -> str:
     response += "`!lore`: Shares a random piece of Diablo 4 lore with you.\n"
     response += "`!countdown <event>`: Shows the remaining time until chosen event.\n"
     response += "`!gpt <prompt>`: Talk to CainGPT!\n"
+    response += "`!image <prompt>`: Have Dall-E 2 generate an epic image based on your prompt.\n"
     response += (
         "`!add <key type> <api key>`: Register your API key to my secret JSON file.\n"
     )

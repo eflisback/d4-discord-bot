@@ -11,6 +11,7 @@ from help import handle_help
 from lore import handle_lore
 from gpt import handle_gpt
 from add import handle_add
+from countdown import handle_countdown
 
 
 def handle_response(user_message, user) -> str:
@@ -34,5 +35,8 @@ def handle_response(user_message, user) -> str:
         case "add":
             return handle_add(user_message, p_id)
 
+        case "countdown":
+            return handle_countdown(user_message)
+
         case _:
-            return "Did not understand."
+            return "I'm afraid that's beyond my wisdom, adventurer..."

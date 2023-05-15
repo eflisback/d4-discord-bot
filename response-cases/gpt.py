@@ -15,7 +15,6 @@ def handle_gpt(message, name, id) -> str:
 
 
 def prompt_gpt(prompt, key):
-    print(prompt)
     openai.api_key = key
     completion = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",

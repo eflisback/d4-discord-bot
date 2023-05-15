@@ -7,7 +7,7 @@ def handle_add(message, id) -> str:
     if len(substrings) != 3:
         return "That's not quite right. Write your command like this: `!add <API type> <API key>`"
 
-    api_type = substrings[1]
+    api_type = substrings[1].lower()
     api_key = substrings[2]
 
     with open("user_keys.json", "r") as file:

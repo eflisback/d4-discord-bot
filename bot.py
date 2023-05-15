@@ -19,10 +19,15 @@ load_dotenv()
 async def send_message(msg, content, is_private):
     try:
         async with msg.channel.typing():
-            response = responses.handle_response(content, msg.author)
-            await msg.author.send(response) if is_private else await msg.channel.send(
-                response
-            )
+            response, is_file = responses.handle_response(content, msg.author)
+            if is_file:
+                await msg.author.send(
+                    file=response
+                ) if is_private else await msg.channel.send(file=response)
+            else:
+                await msg.author.send(
+                    response
+                ) if is_private else await msg.channel.send(response)
     except Exception as e:
         print(e)
 

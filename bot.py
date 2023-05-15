@@ -29,7 +29,7 @@ async def send_message(msg, content, is_private):
                     response
                 ) if is_private else await msg.channel.send(response)
     except Exception as e:
-        print(e)
+        print("bot.py: ", e)
 
 
 def run_discord_bot():

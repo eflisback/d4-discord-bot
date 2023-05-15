@@ -3,3 +3,5 @@ env
 __pycache__
 .vscode
 user_keys.json
+used_titles.json
+image.png

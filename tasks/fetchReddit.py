@@ -22,6 +22,7 @@ def fetch_reddit_data():
     for post in posts[:5]:
         title = post["data"]["title"]
         ups = post["data"]["ups"]
+        url = post["data"]["url"]
         selftext = post["data"]["selftext"]
 
         if ups > upvote_threshold and title not in used_titles:
@@ -33,6 +34,6 @@ def fetch_reddit_data():
             with open("./used_titles.json", "w") as file:
                 json.dump(used_titles, file)
 
-            return title, selftext
+            return title, url, selftext
 
-    return None, None
+    return None, None, None

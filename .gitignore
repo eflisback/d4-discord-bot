@@ -5,3 +5,4 @@ __pycache__
 user_keys.json
 used_titles.json
 image.png
+venv/

@@ -70,9 +70,9 @@ def run_discord_bot():
     @tasks.loop(minutes=25)
     async def fetch_data():
         print("Fetching Reddit data...")
-        title, selftext = fetch_reddit_data()
+        title, url, selftext = fetch_reddit_data()
         if title is not None and selftext is not None:
-            message = f"New post on r/Diablo4:\n\n**{title}**\n{selftext}"
+            message = f"New post on r/Diablo4:\n\n**{title}**\n{selftext}\n{url}"
             for guild in client.guilds:
                 news_channel = None
                 for channel in guild.text_channels:
